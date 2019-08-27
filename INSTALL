@@ -1,0 +1,110 @@
+git 官方网站 https://git-scm.com/
+
+git介绍：
+Git是一个免费的开源 分布式版本控制系统，旨在快速高效地处理从小型到大型项目的所有事务。
+Git 易于学习，占地面积小，具有闪电般快速的性能。它超越了Subversion，CVS，Perforce和ClearCase等SCM工具，具有廉价本地分支，便捷的临时区域和 多个工作流程等功能。
+
+测试：
+运行环境测试系统 CENTOS 7.6
+git 2019
+源文件包编译安装
+git 源文件网址：https://www.kernel.org/pub/software/scm/git
+2019年下载列表
+/////////////////////////////////////////////////////////////////////////////////
+git-htmldocs-2.21.0.tar.sign                       24-Feb-2019 18:16     566
+git-htmldocs-2.21.0.tar.xz                         24-Feb-2019 18:16      1M
+git-htmldocs-2.22.0.tar.gz                         07-Jun-2019 21:00      3M
+git-htmldocs-2.22.0.tar.sign                       07-Jun-2019 21:00     566
+git-htmldocs-2.22.0.tar.xz                         07-Jun-2019 21:00      1M
+git-htmldocs-2.22.1.tar.gz                         12-Aug-2019 17:49      3M
+git-htmldocs-2.22.1.tar.sign                       12-Aug-2019 17:49     566
+git-htmldocs-2.22.1.tar.xz                         12-Aug-2019 17:49      1M
+git-htmldocs-2.23.0.tar.gz                         16-Aug-2019 20:17      3M
+git-htmldocs-2.23.0.tar.sign                       16-Aug-2019 20:17     566
+git-htmldocs-2.23.0.tar.xz                         16-Aug-2019 20:17      1M
+/////////////////////////////////////////////////////////////////////////////////
+yum 安装git
+[root@localhost ~]# sudo yum -y install git
+Git 依赖库: autotools curl zlib openssl expat libiconv
+dnf 安装依赖库
+[root@localhost ~]# dnf install -y asciidoc xmlto docbook2X
+git版本查询
+[root@localhost ~]# git --version
+git version 2.21.0
+autotools 下载地址 http://mirrors.kernel.org/gnu/
+[root@localhost ~]# yum install -y autotools curl zlib openssl expat libiconv
+libiconv依赖包GNU 网站 http://www.gnu.org/software/libiconv/#TOCdownloading
+libiconv依赖包GNU 网站 https://ftp.gnu.org/gnu/libiconv/
+wget 工具下载 libiconv 依赖包
+[root@localhost ~]# wget https://ftp.gnu.org/gnu/libiconv/libiconv-1.16.tar.gz
+[root@localhost ~]# ls
+anaconda-ks.cfg  libiconv-1.16.tar.gz
+解压 libiconv 依赖包
+[root@localhost ~]# tar -zxf libiconv-1.16.tar.gz
+[root@localhost ~]# ls
+anaconda-ks.cfg  libiconv-1.16  libiconv-1.16.tar.gz
+进入libiconv 依赖包文件夹
+[root@localhost ~]# cd libiconv-1.16/
+[root@localhost libiconv-1.16]# ls
+ABOUT-NLS   AUTHORS    ChangeLog    configure     COPYING      DEPENDENCIES  doc     gnulib-local  include          INSTALL.windows  libcharset  Makefile.devel  man   NOTES  po      src     srcm4  THANKS  windows
+aclocal.m4  build-aux  config.h.in  configure.ac  COPYING.LIB  DESIGN        extras  HACKING       INSTALL.generic  lib              m4          Makefile.in     NEWS  os2    README  srclib  tests  tools   woe32dll
+检查配置
+[root@localhost libiconv-1.16]# ./configure --prefix=/usr/local
+编译安装
+[root@localhost libiconv-1.16]# make && make install
+通过Git获取Git以获取更新
+[root@localhost libiconv-1.16]# git clone git://git.kernel.org/pub/scm/git/git.git
+git config 配置环境变量
+
+1、/etc/gitconfigfile：包含应用于系统上每个用户及其所有存储库的值。如果将选项传递--system给git config，则会专门从此文件进行读写。（因为这是系统配置文件，您需要管理员或超级用户权限才能对其进行更改。）
+
+2、~/.gitconfig或~/.config/git/config文件：用户个人特定的值。您可以通过传递--global选项使Git专门读取和写入此文件，这会影响您在系统上使用的所有存储库。
+
+3、config在.git/config您当前使用的任何存储库的Git目录（即）中的文件：特定于该单个存储库。您可以强制Git使用该--local选项读取和写入此文件，但这实际上是默认值。（不出所料，您需要位于Git存储库中的某个位置才能使此选项正常工作。）
+
+每个级别将覆盖以前的水平值，因此值.git/config胜过那些/etc/gitconfig。
+
+[root@localhost ~]# git config --global user.name "king-dev"
+[root@localhost ~]# git config --global user.email "email@king-dev.com"
+[root@localhost ~]# git config --list
+user.name=king-dev
+user.email=email@king-dev.com
+[root@localhost ~]# mkdir git-king-dev
+[root@localhost ~]# cd git-king-dev/
+[root@localhost git-king-dev]# git init
+Initialized empty Git repository in /root/git-king-dev/.git/
+[root@localhost git-king-dev]# git status ./
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+[root@localhost git-king-dev]# useradd king-dev
+[root@localhost git-king-dev]# passwd king-dev 
+Changing password for user king-dev.
+New password: 
+BAD PASSWORD: The password is a palindrome
+Retype new password: 
+passwd: all authentication tokens updated successfully.
+[root@localhost git-king-dev]# groupadd git
+[root@localhost git-king-dev]# git init --bare
+Initialized empty Git repository in /root/git-king-dev/
+[root@localhost git-king-dev]# ls
+branches  config  description  HEAD  hooks  info  objects  refs
+[root@localhost git-king-dev]# chown -R king-dev:git /root/git-king-dev/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
